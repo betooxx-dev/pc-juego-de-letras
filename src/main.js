@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const countdownElement = document.getElementById("countdown");
   const gameArea = document.getElementById("game-area");
 
+  const difficultyButtons = document.querySelectorAll(".difficulty-button");
+  let selectedDifficulty = "normal";
+
   const scoreManager = new ScoreManager(scoreElement);
   const timerManager = new TimerManager(timerElement, () =>
     gameController.exitGame()
@@ -38,10 +41,28 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const gameController = new GameController(gameManager, gamePresenter);
 
-  playButton.addEventListener("click", () => gameController.startGame());
+  difficultyButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedDifficulty = button.id.split("-")[0]; // 'easy', 'normal', or 'hard'
+      difficultyButtons.forEach((btn) => btn.classList.remove("selected"));
+      button.classList.add("selected");
+      playButton.classList.remove("hidden");
+    });
+  });
+
+  playButton.addEventListener("click", () => {
+    gameManager.setDifficulty(selectedDifficulty);
+    gameController.startGame();
+  });
+
   stopButton.addEventListener("click", () => gameController.stopGame());
   resumeButton.addEventListener("click", () => gameController.resumeGame());
-  exitButton.addEventListener("click", () => gameController.exitGame());
+  exitButton.addEventListener("click", () => {
+    gameController.exitGame();
+    playButton.classList.add("hidden");
+    difficultyButtons.forEach((btn) => btn.classList.remove("selected"));
+  });
+
   document.addEventListener("keydown", (e) => gameController.handleKeyPress(e));
 
   letterGeneratorWorker.onmessage = () => {

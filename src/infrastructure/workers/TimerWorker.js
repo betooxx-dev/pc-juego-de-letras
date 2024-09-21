@@ -1,16 +1,17 @@
 let interval;
-let timeRemaining = 60; // 60 segundos por defecto
+let timeRemaining = 60;
 
 self.onmessage = function (e) {
   switch (e.data.command) {
     case "start":
+      timeRemaining = e.data.initialTime || 60;
       startTimer();
       break;
     case "stop":
       stopTimer();
       break;
     case "reset":
-      resetTimer();
+      resetTimer(e.data.initialTime);
       break;
   }
 };
@@ -35,8 +36,8 @@ function stopTimer() {
   }
 }
 
-function resetTimer() {
+function resetTimer(initialTime) {
   stopTimer();
-  timeRemaining = 60;
+  timeRemaining = initialTime || 60;
   self.postMessage({ timeRemaining });
 }

@@ -9,6 +9,22 @@ class GameManager {
     this.letters = [];
     this.isPlaying = false;
     this.usedLetters = new Set();
+    this.difficulty = "normal";
+    this.difficultySettings = {
+      easy: { fallSpeed: 1, gameTime: 90, generationInterval: 1000 },
+      normal: { fallSpeed: 2, gameTime: 60, generationInterval: 500 },
+      hard: { fallSpeed: 3, gameTime: 45, generationInterval: 300 },
+    };
+  }
+
+  setDifficulty(difficulty) {
+    this.difficulty = difficulty;
+    const settings = this.difficultySettings[difficulty];
+    this.timerManager.setInitialTime(settings.gameTime);
+    this.letterGeneratorWorker.postMessage({
+      command: "setInterval",
+      interval: settings.generationInterval,
+    });
   }
 
   startGame() {
@@ -55,8 +71,9 @@ class GameManager {
   }
 
   moveLetter() {
+    const fallSpeed = this.difficultySettings[this.difficulty].fallSpeed;
     this.letters = this.letters.filter((letter) => {
-      letter.move(2);
+      letter.move(fallSpeed);
       if (letter.y >= this.gameArea.offsetHeight) {
         this.usedLetters.delete(letter.character);
         this.scoreManager.updateScore(-1);

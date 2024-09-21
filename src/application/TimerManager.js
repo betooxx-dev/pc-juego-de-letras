@@ -4,6 +4,7 @@ class TimerManager {
     this.onTimerEnd = onTimerEnd;
     this.timerWorker = new Worker("/src/infrastructure/workers/TimerWorker.js");
     this.setupWorkerListener();
+    this.initialTime = 60;
   }
 
   setupWorkerListener() {
@@ -15,8 +16,16 @@ class TimerManager {
     };
   }
 
+  setInitialTime(time) {
+    this.initialTime = time;
+    this.updateTimer(time);
+  }
+
   startTimer() {
-    this.timerWorker.postMessage({ command: "start" });
+    this.timerWorker.postMessage({
+      command: "start",
+      initialTime: this.initialTime,
+    });
   }
 
   stopTimer() {
@@ -24,8 +33,11 @@ class TimerManager {
   }
 
   resetTimer() {
-    this.timerWorker.postMessage({ command: "reset" });
-    this.updateTimer(60);
+    this.timerWorker.postMessage({
+      command: "reset",
+      initialTime: this.initialTime,
+    });
+    this.updateTimer(this.initialTime);
   }
 
   updateTimer(timeRemaining) {
