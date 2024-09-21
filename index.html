@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juego de Letras</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
     <div id="menu-view" class="view">
-        <h1>Juego de Letras</h1>
-        <button id="play-button">Jugar</button>
+      <h1>Juego de Letras</h1>
+      <button id="play-button">Jugar</button>
     </div>
+
     <div id="game-view" class="view hidden">
-        <div id="controls">
-            <button id="stop-button">Parar</button>
-            <button id="resume-button" class="hidden">Reanudar</button>
-            <button id="exit-button">Salir</button>
-        </div>
-        <div id="game-info">
-            <div id="timer">Tiempo: 60s</div>
-            <div id="score">Puntuación: 0</div>
-        </div>
-        <div id="countdown">3</div>
-        <div id="game-area"></div>
+      <div id="controls">
+        <button id="stop-button">Parar</button>
+        <button id="resume-button" class="hidden">Reanudar</button>
+        <button id="exit-button">Salir</button>
+      </div>
+
+      <div id="game-info">
+        <div id="timer">Tiempo: 60s</div>
+        <div id="score">Puntuación: 0</div>
+      </div>
+
+      <div id="countdown" class="hidden">3</div>
+
+      <div id="game-area"></div>
     </div>
-    <script src="js/game.js"></script>
-</body>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
