@@ -1,6 +1,7 @@
 # Juego de Letras
 
 ![Imagen del Menu](/assets/menu.png "Menú Principal")
+
 ![Imagen del Juego](/assets/juego.png "Interfaz de Juego")
 
 
