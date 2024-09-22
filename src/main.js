@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     timerManager,
     letterGeneratorWorker
   );
+
   const gamePresenter = new GamePresenter(
     menuView,
     gameView,

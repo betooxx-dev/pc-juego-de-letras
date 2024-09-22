@@ -1,21 +1,32 @@
 class ScoreManager {
   constructor(scoreElement) {
     this.scoreElement = scoreElement;
-    this.score = 0;
+    this.scoreWorker = new Worker("/src/infrastructure/workers/ScoreWorker.js");
+    this.setupWorkerListener();
+  }
+
+  setupWorkerListener() {
+    this.scoreWorker.onmessage = (e) => {
+      if (e.data.type === "scoreUpdated" || e.data.type === "currentScore") {
+        this.updateScoreDisplay(e.data.score);
+      }
+    };
   }
 
   updateScore(points) {
-    this.score += points;
-    this.updateScoreDisplay();
+    this.scoreWorker.postMessage({ command: "updateScore", points: points });
   }
 
   resetScore() {
-    this.score = 0;
-    this.updateScoreDisplay();
+    this.scoreWorker.postMessage({ command: "resetScore" });
   }
 
-  updateScoreDisplay() {
-    this.scoreElement.textContent = `Puntuación: ${this.score}`;
+  getScore() {
+    this.scoreWorker.postMessage({ command: "getScore" });
+  }
+
+  updateScoreDisplay(score) {
+    this.scoreElement.textContent = `Puntuación: ${score}`;
   }
 }
 
