@@ -1,6 +1,8 @@
 # Juego de Letras
 
-![Imagen del Juego](/assets/juego.png "Interfaz:")
+![Imagen del Menu](/assets/menu.png "Menú Principal")
+![Imagen del Juego](/assets/juego.png "Interfaz de Juego")
+
 
 ## Descripción
 Este proyecto es un juego de mecanografía interactivo donde las letras caen desde la parte superior de la pantalla y el jugador debe presionar las teclas correspondientes antes de que lleguen al fondo.
