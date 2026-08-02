@@ -1,6 +1,21 @@
 # Letter Rush
 
+[![Demo](https://img.shields.io/badge/demo-jugar-54F5D0?style=flat-square&logo=netlify&logoColor=071014)](https://letterconcurrentgame.netlify.app/)
+[![Tests](https://img.shields.io/github/actions/workflow/status/betooxx-dev/letter-rush/test.yml?branch=master&style=flat-square&label=tests)](https://github.com/betooxx-dev/letter-rush/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-8B7DFF?style=flat-square)](LICENSE)
+
 Juego de reflejos y mecanografía construido con HTML, CSS y JavaScript nativo. Las letras caen por el tablero y deben capturarse con el teclado antes de llegar a la zona límite.
+
+**[Jugar Letter Rush →](https://letterconcurrentgame.netlify.app/)**
+
+## Características
+
+- Tres dificultades con velocidad, duración y frecuencia de aparición propias.
+- Simulación en un único Web Worker con fallback local.
+- Movimiento independiente de los FPS y render incremental limitado a 60 Hz.
+- Pausa automática al ocultar la pestaña, controles de teclado y diseño responsive.
+- Puntuación, precisión, resultados y récord personal persistente.
+- 30 pruebas automatizadas sobre motor, runtime, worker, controlador y renderer.
 
 ## Capturas de pantalla
 
@@ -39,6 +54,16 @@ npm test
 
 Las pruebas usan `node:test`, sin dependencias externas.
 
+Cada push y pull request ejecuta la suite en GitHub Actions con Node.js 20.
+
+## Tecnologías
+
+- HTML5 semántico y CSS3 responsive.
+- JavaScript ES Modules, sin frameworks ni dependencias de runtime.
+- Web Workers para la simulación y render coalescido para la UI.
+- `node:test` y GitHub Actions para validación continua.
+- Netlify para el despliegue público.
+
 ## Arquitectura
 
 ```text
@@ -75,3 +100,7 @@ El motor recibe `deltaTime`, por lo que la velocidad no depende de los FPS. La s
 | Difícil | 45 s | 180 px/s | cada 300 ms |
 
 Cada acierto suma un punto. Una tecla alfabética incorrecta o una letra perdida resta un punto y cuenta como fallo. La mejor puntuación se conserva en el navegador.
+
+## Licencia
+
+Distribuido bajo la [licencia MIT](LICENSE).

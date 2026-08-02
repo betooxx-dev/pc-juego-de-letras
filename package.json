@@ -1,8 +1,24 @@
 {
   "name": "letter-rush",
   "version": "2.0.0",
+  "description": "Juego de mecanografía en tiempo real con Web Worker y UI responsive.",
   "private": true,
+  "license": "MIT",
+  "homepage": "https://letterconcurrentgame.netlify.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/betooxx-dev/letter-rush.git"
+  },
+  "keywords": [
+    "typing-game",
+    "web-workers",
+    "vanilla-javascript",
+    "responsive-design"
+  ],
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "python3 -m http.server 4173",
     "test": "node --test"
