@@ -2,6 +2,25 @@
 
 Juego de reflejos y mecanografía construido con HTML, CSS y JavaScript nativo. Las letras caen por el tablero y deben capturarse con el teclado antes de llegar a la zona límite.
 
+## Capturas de pantalla
+
+### Menú principal
+
+![Menú principal actual de Letter Rush](assets/letter-rush-menu.jpg)
+
+### Partida en curso
+
+![Partida actual de Letter Rush](assets/letter-rush-game.jpg)
+
+<details>
+<summary>Capturas de la versión original</summary>
+
+![Menú original del juego](assets/menu.png)
+
+![Partida original del juego](assets/juego.png)
+
+</details>
+
 ## Ejecutar en local
 
 Requiere Node.js 20+ y Python 3.

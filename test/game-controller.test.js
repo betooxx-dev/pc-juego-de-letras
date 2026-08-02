@@ -104,12 +104,14 @@ test("difficulty, start and exit actions are delegated to the runtime", () => {
   const bounds = { width: 800, height: 600, missY: 520 };
   const runtime = {
     selectDifficulty: (difficulty) => commands.push(["difficulty", difficulty]),
-    start: (difficulty, receivedBounds) =>
-      commands.push(["start", difficulty, receivedBounds]),
+    start: (difficulty) => commands.push(["start", difficulty]),
+    resize: (receivedBounds) => commands.push(["resize", receivedBounds]),
     reset: () => commands.push(["reset"]),
   };
   const renderer = {
     getGameBounds: () => bounds,
+    render() {},
+    focusGame() {},
   };
   const storage = { getItem: () => null, setItem: () => {} };
   const controller = new GameController(runtime, renderer, { storage });
@@ -118,11 +120,16 @@ test("difficulty, start and exit actions are delegated to the runtime", () => {
   controller.selectDifficulty("hard");
   controller.snapshot = { phase: GAME_PHASE.MENU, difficulty: "hard" };
   controller.startGame();
+  controller.handleSnapshot({
+    phase: GAME_PHASE.COUNTDOWN,
+    difficulty: "hard",
+  });
   controller.exitToMenu();
 
   assert.deepEqual(commands, [
     ["difficulty", "hard"],
-    ["start", "hard", bounds],
+    ["start", "hard"],
+    ["resize", bounds],
     ["reset"],
   ]);
 });

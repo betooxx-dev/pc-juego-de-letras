@@ -71,6 +71,7 @@ export default class GameController {
       previousPhase !== GAME_PHASE.COUNTDOWN &&
       snapshot.phase === GAME_PHASE.COUNTDOWN
     ) {
+      this.runtime.resize(this.renderer.getGameBounds());
       this.renderer.focusGame();
     }
   }
@@ -80,10 +81,7 @@ export default class GameController {
   }
 
   startGame() {
-    this.runtime.start(
-      this.snapshot?.difficulty ?? "normal",
-      this.renderer.getGameBounds()
-    );
+    this.runtime.start(this.snapshot?.difficulty ?? "normal");
   }
 
   togglePause() {
