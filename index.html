@@ -3,42 +3,306 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Juego de Letras</title>
+    <meta
+      name="description"
+      content="Letter Rush: un juego de reflejos para atrapar letras antes de que lleguen al final."
+    />
+    <meta name="theme-color" content="#070914" />
+    <title>Letter Rush — Juego de letras</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
-    <div id="menu-view" class="view">
-      <h1>Juego de Letras</h1>
-      <div id="difficulty-selector">
-        <h2>Selecciona la dificultad:</h2>
-        <button id="easy-button" class="difficulty-button">Fácil</button>
-        <button id="normal-button" class="difficulty-button">Normal</button>
-        <button id="hard-button" class="difficulty-button">Difícil</button>
-      </div>
-      <button id="play-button" class="hidden">Jugar</button>
-    </div>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
 
-    <div id="game-view" class="view hidden">
-      <div id="controls">
-        <button id="stop-button">Parar</button>
-        <button id="resume-button" class="hidden">Reanudar</button>
-        <button id="exit-button">Salir</button>
-      </div>
+    <div class="ambient-light ambient-light--cyan" aria-hidden="true"></div>
+    <div class="ambient-light ambient-light--pink" aria-hidden="true"></div>
 
-      <div id="game-info">
-        <div id="timer">Tiempo: 60s</div>
-        <div id="score">Puntuación: 0</div>
-      </div>
+    <main id="main-content" class="app-shell">
+      <section
+        id="menu-view"
+        class="view menu-view"
+        aria-labelledby="game-title"
+      >
+        <header class="hero">
+          <h1 id="game-title" class="game-logo">
+            <span>Letter</span>
+            <span class="game-logo__accent">Rush</span>
+          </h1>
+          <p class="hero__copy">
+            Atrapa cada letra con tu teclado antes de que cruce la línea.
+            Elige tu ritmo; tus reflejos deciden el resultado.
+          </p>
+        </header>
 
-      <div id="countdown" class="hidden">3</div>
+        <div class="quick-guide" aria-label="Cómo jugar">
+          <div class="quick-guide__icon" aria-hidden="true">A</div>
+          <div class="quick-guide__copy">
+            <strong>Mira, encuentra, presiona</strong>
+            <span>Usa las teclas A–Z. Cada acierto suma; cada letra perdida cuenta.</span>
+          </div>
+          <div class="quick-guide__keys" aria-hidden="true">
+            <kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>
+          </div>
+        </div>
 
-      <div id="game-area"></div>
-    </div>
+        <fieldset id="difficulty-selector" class="difficulty-selector">
+          <legend>Elige tu desafío</legend>
+          <p class="section-hint" id="difficulty-hint">
+            Puedes cambiarlo al terminar cada partida.
+          </p>
 
-    <script type="module" src="/src/main.js"></script>
+          <div class="difficulty-grid">
+            <button
+              id="easy-button"
+              class="difficulty-button"
+              type="button"
+              data-difficulty="easy"
+              aria-pressed="false"
+              aria-describedby="easy-details"
+            >
+              <span class="difficulty-button__topline">
+                <span class="difficulty-button__icon" aria-hidden="true">✦</span>
+                <span class="difficulty-button__name">Fácil</span>
+              </span>
+              <span id="easy-details" class="difficulty-button__details">
+                <span><strong>90 s</strong> de partida</span>
+                <span>Ritmo relajado</span>
+              </span>
+              <span class="difficulty-button__meter" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </span>
+            </button>
+
+            <button
+              id="normal-button"
+              class="difficulty-button selected"
+              type="button"
+              data-difficulty="normal"
+              aria-pressed="true"
+              aria-describedby="normal-details"
+            >
+              <span class="difficulty-button__badge">Recomendado</span>
+              <span class="difficulty-button__topline">
+                <span class="difficulty-button__icon" aria-hidden="true">◆</span>
+                <span class="difficulty-button__name">Normal</span>
+              </span>
+              <span id="normal-details" class="difficulty-button__details">
+                <span><strong>60 s</strong> de partida</span>
+                <span>Ritmo equilibrado</span>
+              </span>
+              <span class="difficulty-button__meter" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </span>
+            </button>
+
+            <button
+              id="hard-button"
+              class="difficulty-button"
+              type="button"
+              data-difficulty="hard"
+              aria-pressed="false"
+              aria-describedby="hard-details"
+            >
+              <span class="difficulty-button__topline">
+                <span class="difficulty-button__icon" aria-hidden="true">⚡</span>
+                <span class="difficulty-button__name">Difícil</span>
+              </span>
+              <span id="hard-details" class="difficulty-button__details">
+                <span><strong>45 s</strong> de partida</span>
+                <span>Ritmo frenético</span>
+              </span>
+              <span class="difficulty-button__meter" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </span>
+            </button>
+          </div>
+        </fieldset>
+
+        <button id="play-button" class="primary-button" type="button">
+          <span>Jugar ahora</span>
+          <span class="primary-button__icon" aria-hidden="true">▶</span>
+        </button>
+
+        <p class="keyboard-note">
+          <span aria-hidden="true">⌨</span> Requiere teclado físico
+        </p>
+      </section>
+
+      <section
+        id="game-view"
+        class="view game-view hidden"
+        aria-labelledby="game-view-title"
+      >
+        <h1 id="game-view-title" class="sr-only">Partida en curso</h1>
+
+        <header class="game-hud">
+          <div class="hud-brand" aria-hidden="true">
+            <span>LR</span>
+          </div>
+
+          <div class="hud-metrics" aria-label="Estadísticas de la partida">
+            <div class="hud-stat hud-stat--timer">
+              <span class="hud-stat__label">Tiempo</span>
+              <output id="timer" class="hud-stat__value" role="timer">01:00</output>
+            </div>
+            <div class="hud-stat">
+              <span class="hud-stat__label">Puntos</span>
+              <output id="score" class="hud-stat__value">0</output>
+            </div>
+            <div class="hud-stat">
+              <span class="hud-stat__label">Precisión</span>
+              <output id="accuracy" class="hud-stat__value">100%</output>
+            </div>
+          </div>
+
+          <div class="hud-actions">
+            <button
+              id="pause-button"
+              class="secondary-button hud-button"
+              type="button"
+              aria-label="Pausar partida"
+              aria-keyshortcuts="Escape"
+            >
+              <span aria-hidden="true">Ⅱ</span>
+              <span class="hud-button__label">Pausar</span>
+            </button>
+            <button
+              id="exit-button"
+              class="ghost-button hud-button"
+              type="button"
+              aria-label="Salir de la partida"
+            >
+              <span aria-hidden="true">↗</span>
+              <span class="hud-button__label">Salir</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="play-header">
+          <div>
+            <span id="current-difficulty" class="difficulty-pill">Normal</span>
+            <span class="play-header__status">
+              <i aria-hidden="true"></i> En juego
+            </span>
+          </div>
+          <p id="game-instructions">
+            Presiona la letra antes de que llegue a la zona roja.
+          </p>
+        </div>
+
+        <div class="game-board">
+          <div
+            id="game-area"
+            class="game-area"
+            role="region"
+            aria-label="Tablero de letras"
+            aria-describedby="game-instructions"
+            tabindex="0"
+          ></div>
+
+          <div class="danger-zone" aria-hidden="true">
+            <span>Zona límite</span>
+          </div>
+
+          <div
+            id="countdown-overlay"
+            class="game-overlay countdown-overlay hidden"
+            aria-live="assertive"
+            aria-atomic="true"
+          >
+            <p>Prepárate</p>
+            <strong id="countdown">3</strong>
+          </div>
+
+          <div
+            id="pause-overlay"
+            class="game-overlay pause-overlay hidden"
+            role="dialog"
+            aria-labelledby="pause-title"
+          >
+            <div class="overlay-card">
+              <span class="overlay-card__icon" aria-hidden="true">Ⅱ</span>
+              <h2 id="pause-title">Partida en pausa</h2>
+              <p>El reloj está detenido. Respira y vuelve cuando quieras.</p>
+              <button id="resume-button" class="primary-button" type="button">
+                Continuar <span aria-hidden="true">▶</span>
+              </button>
+              <small>También puedes presionar <kbd>Esc</kbd></small>
+            </div>
+          </div>
+
+          <output
+            id="feedback"
+            class="game-feedback"
+            aria-live="polite"
+            aria-atomic="true"
+          ></output>
+        </div>
+
+        <p class="touch-notice">
+          Este juego está optimizado para un teclado físico. Conecta uno para jugar
+          desde móvil o tablet.
+        </p>
+      </section>
+
+      <section
+        id="results-view"
+        class="view results-view hidden"
+        aria-labelledby="results-title"
+      >
+        <div class="results-card">
+          <div class="results-card__glow" aria-hidden="true"></div>
+          <p class="eyebrow">Partida completada</p>
+          <h1 id="results-title">¡Buen ritmo!</h1>
+          <p id="result-message" class="results-card__message">
+            Tus reflejos estuvieron a la altura.
+          </p>
+
+          <div class="final-score">
+            <span>Puntuación final</span>
+            <output id="final-score">0</output>
+            <small>puntos</small>
+          </div>
+
+          <p class="personal-best">
+            Récord personal <output id="best-score">0</output>
+          </p>
+
+          <dl class="result-stats">
+            <div class="result-stat result-stat--hit">
+              <dt>Aciertos</dt>
+              <dd><output id="final-hits">0</output></dd>
+            </div>
+            <div class="result-stat result-stat--miss">
+              <dt>Fallos</dt>
+              <dd><output id="final-misses">0</output></dd>
+            </div>
+            <div class="result-stat result-stat--accuracy">
+              <dt>Precisión</dt>
+              <dd><output id="final-accuracy">0%</output></dd>
+            </div>
+          </dl>
+
+          <div class="results-actions">
+            <button id="replay-button" class="primary-button" type="button">
+              Jugar otra vez <span aria-hidden="true">↻</span>
+            </button>
+            <button id="menu-button" class="secondary-button" type="button">
+              Cambiar dificultad
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="status-announcer" class="sr-only" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.js?v=2"></script>
   </body>
 </html>
